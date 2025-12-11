@@ -1,0 +1,410 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>50th Wedding Anniversary</title>
+    <meta name="description" content="A glamorous golden anniversary card with confetti celebration inside." />
+    <!-- Premium wedding fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Alex+Brush&family=Sacramento&family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #fdfcf7;
+            min-height: 100vh;
+            font-family: 'Cormorant Garamond', serif;
+            color: #4a3a28;
+            overflow-x: hidden;
+            position: relative;
+            padding: 12px;
+        }
+
+        /* Confetti canvas */
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .card-wrapper {
+            max-width: 560px;
+            margin: 24px auto;
+            position: relative;
+            z-index: 200;
+            box-shadow: 0 14px 50px rgba(139, 107, 45, 0.22);
+            border-radius: 28px;
+            overflow: hidden;
+        }
+
+        /* Wide gold border */
+        .card-border {
+            border: 32px solid #d4af37;
+            border-image: linear-gradient(135deg, #f9d71c, #b8860b, #d4af37) 1;
+            border-radius: 24px;
+            background: white;
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.1);
+        }
+
+        .card-page {
+            padding: 44px 38px;
+            min-height: 64vh;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* === COVER PAGE: GLAMOROUS "50" === */
+        .cover-content {
+            text-align: center;
+            position: relative;
+        }
+
+        .golden-number {
+            font-family: 'Great Vibes', cursive;
+            font-size: 140px;
+            color: #d4af37;
+            text-shadow: 
+                0 0 8px rgba(212, 175, 55, 0.6),
+                0 0 16px rgba(184, 134, 11, 0.7),
+                0 0 24px #b8860b;
+            margin: 15px 0 30px;
+            animation: flicker 3s infinite alternate;
+            letter-spacing: 3px;
+        }
+
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                opacity: 1;
+                text-shadow: 
+                    0 0 8px rgba(212, 175, 55, 0.6),
+                    0 0 16px rgba(184, 134, 11, 0.7),
+                    0 0 24px #b8860b;
+            }
+            20%, 24%, 55% {
+                opacity: 0.95;
+                text-shadow: 
+                    0 0 4px rgba(212, 175, 55, 0.4),
+                    0 0 8px rgba(184, 134, 11, 0.5),
+                    0 0 12px #b8860b;
+            }
+        }
+
+        .anniversary-title {
+            font-family: 'Sacramento', cursive;
+            font-size: 44px;
+            color: #8b6b2d;
+            margin-bottom: 28px;
+            letter-spacing: 1.5px;
+        }
+
+        .couple-names {
+            font-family: 'Alex Brush', cursive;
+            font-size: 36px;
+            color: #4a3a28;
+            margin: 30px 0;
+            line-height: 1.3;
+            padding: 16px 24px;
+            background: rgba(212, 175, 55, 0.04);
+            border-radius: 10px;
+        }
+
+        .anniversary-date {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: 600;
+            margin: 20px 0;
+            padding: 12px 18px;
+            color: #6b511d;
+            background: rgba(212, 175, 55, 0.03);
+            border-radius: 8px;
+        }
+
+        .years-together {
+            font-family: 'Sacramento', cursive;
+            font-size: 26px;
+            color: #8b6b2d;
+            margin-top: 22px;
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+
+        .open-hint {
+            text-align: center;
+            margin-top: 28px;
+            color: #9a835a;
+            font-style: italic;
+            font-size: 18px;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* === INSIDE PAGE === */
+        .poem-title {
+            font-family: 'Sacramento', cursive;
+            font-size: 28px;
+            color: #8b6b2d;
+            text-align: center;
+            margin-bottom: 28px;
+            letter-spacing: 1px;
+        }
+
+        .poem-title::after {
+            content: "";
+            display: block;
+            width: 90px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #d4af37, transparent);
+            margin: 12px auto;
+        }
+
+        /* === FIXED WIDTH FOR KIKUYU POEM === */
+        .poem-content {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            line-height: 1.85;
+            min-height: 280px;
+            padding: 26px 16px; /* Reduced side padding for more width */
+            border: 2px dashed #d4af37;
+            border-radius: 16px;
+            background: rgba(245, 240, 225, 0.4);
+            margin-bottom: 32px;
+            text-align: center;
+            width: 94%;         /* Uses more horizontal space */
+            max-width: 560px;   /* Matches card width */
+            margin-left: auto;
+            margin-right: auto;
+            /* Preserve your line breaks exactly as written */
+            white-space: pre-line;
+        }
+
+        /* BUTTONS */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 16px 38px;
+            font-family: 'Sacramento', cursive;
+            font-size: 22px;
+            color: white;
+            border: none;
+            border-radius: 42px;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(139, 107, 45, 0.4);
+            transition: all 0.25s ease;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #b8860b, #8b6b2d);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 3px solid #d4af37;
+            color: #d4af37;
+            box-shadow: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 9px 22px rgba(139, 107, 45, 0.5);
+        }
+
+        .instructions {
+            text-align: center;
+            margin-top: 28px;
+            color: #8b6b2d;
+            font-size: 17px;
+            padding: 0 14px;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        [contenteditable="true"]:focus {
+            outline: 3px dashed #d4af37;
+            outline-offset: 6px;
+            background: rgba(249, 215, 28, 0.1) !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Confetti Canvas -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="card-wrapper">
+        <div class="card-border">
+            <div class="card-page">
+                <!-- COVER PAGE -->
+                <div class="page active" id="coverPage">
+                    <div class="cover-content">
+                        <div class="golden-number">50</div>
+                        <h1 class="anniversary-title">Golden Anniversary</h1>
+                        <div class="couple-names" contenteditable="true">Mr. & Mrs. Mwatha Mbugwa</div>
+                        <div class="anniversary-date" contenteditable="true"> December 1975 – December 2025</div>
+                        <div class="years-together">Mĩaka Mĩrongo Ĩtano ya Wendo na Wĩrutĩri</div>
+                        <div class="open-hint">Hingũra kandi ĩno nĩguo twambĩrĩrie gũkũngũĩra ũhiki</div>
+                        <div class="nav-buttons">
+                            <button class="btn btn-primary" id="openBtn">Hingũra Kandi</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INSIDE PAGE -->
+                <div class="page" id="insidePage">
+                    <h2 class="poem-title">Irebeta Rĩa Gũkũngũĩra Rugendo Rwanyu Rwa Thahabu</h2>
+                    <div class="poem-content">
+                        Kwa ihinda rĩa mĩaka mĩrongo ĩtano ya gĩkeno na ũtugi,<br>
+                        Mũkoretwo mũgĩtwarana na andũ arĩa angĩ ũtũũro-inĩ wanyu na ikinyukia rĩa wendo.<br>
+                        Kuma iroto cia ũnini-inĩ wanyu nginya cia mbuĩ-inĩ cianyu,<br>
+                        ũrũmwe wanyu ũrathiĩ ũkĩgĩaga na hinya makĩria.<br><br>
+                        
+                        Ndaĩ-inĩ na mĩtheko-inĩ yanyu, mũroranite na maitho ma ũmenyo,<br>
+                        Mũkĩrũmbũiya maũndũ ma ũkũrũ-inĩ wanyu.<br>
+                        O na kũrĩ na riũa kana mbura, mũkoragwo mũrũgamĩte hamwe,<br>
+                        Wendo wanyu wa thahabu ũgaikara ũrĩ mwĩthĩ hĩndĩ ciothe.<br><br>
+                        
+                        Nĩ ũndũ ũcio-rĩ, rekei tũnyue rũhĩa nĩ ũndũ wa mĩaka mĩrongo ĩtano,<br>
+                        Nĩguo tũcanjamũke tũrĩ hamwe na tũite maithori ma gĩkeno.<br>
+                        Reke irathimo ciyũre matukũ-inĩ manyu ma thahabu,<br>
+                        Na wendo ũtathiraga na njĩra yoyothe kaimana.                                
+                    </div>
+                    <div class="nav-buttons">
+                        <button class="btn btn-outline" id="backBtn">Coka Mũciĩ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="instructions">
+        ✏️ Edit names & poem • 💛 Share this link to spread joy!
+    </div>
+
+    <script>
+        // CONFETTI ENGINE
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        const confetti = [];
+        const colors = ['#d4af37', '#f9d71c', '#ffd700', '#ffffff', '#b8860b'];
+        let confettiInterval = null;
+        let isConfettiRunning = false;
+
+        class Piece {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = -20;
+                this.rotation = Math.random() * 360;
+                this.scale = Math.random() * 0.9 + 0.5;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.velocity = { x: (Math.random() - 0.5) * 5, y: Math.random() * 7 + 4 };
+                this.angularVelocity = (Math.random() - 0.5) * 15;
+            }
+            update() {
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                this.rotation += this.angularVelocity;
+                return this.y <= canvas.height + 40;
+            }
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation * Math.PI / 180);
+                ctx.scale(this.scale, this.scale);
+                ctx.fillStyle = this.color;
+                ctx.fillRect(-7, -7, 14, 14);
+                ctx.restore();
+            }
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 4; i++) {
+                confetti.push(new Piece());
+            }
+        }
+
+        function startConfetti() {
+            if (isConfettiRunning) return;
+            isConfettiRunning = true;
+            confettiInterval = setInterval(() => {
+                createConfetti();
+                animateConfetti();
+            }, 120);
+        }
+
+        function stopConfetti() {
+            if (!isConfettiRunning) return;
+            clearInterval(confettiInterval);
+            isConfettiRunning = false;
+            setTimeout(() => {
+                confetti.length = 0;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }, 2000);
+        }
+
+        function animateConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = confetti.length - 1; i >= 0; i--) {
+                if (!confetti[i].update()) confetti.splice(i, 1);
+            }
+            confetti.forEach(p => p.draw());
+        }
+
+        // PAGE NAVIGATION
+        document.addEventListener('DOMContentLoaded', () => {
+            const cover = document.getElementById('coverPage');
+            const inside = document.getElementById('insidePage');
+
+            document.getElementById('openBtn').addEventListener('click', () => {
+                cover.classList.remove('active');
+                inside.classList.add('active');
+                startConfetti();
+            });
+
+            document.getElementById('backBtn').addEventListener('click', () => {
+                inside.classList.remove('active');
+                cover.classList.add('active');
+                stopConfetti();
+            });
+
+            // Save user edits
+            document.querySelectorAll('[contenteditable]').forEach(el => {
+                const key = el.closest('#coverPage') ? 'cover_' + el.classList[0] : 'inside_' + el.classList[0];
+                const saved = localStorage.getItem(key);
+                if (saved) el.innerHTML = saved;
+                el.addEventListener('input', () => localStorage.setItem(key, el.innerHTML));
+            });
+        });
+    </script>
+</body>
+</html>
